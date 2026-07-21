@@ -6,7 +6,7 @@ const LOGO_LIGHT = "https://media.base44.com/images/public/6a5cb44eb599d294f260c
 const LOGO_DARK = "https://media.base44.com/images/public/6a5cb44eb599d294f260c3f8/015a95113_whiteLogo.png";
 
 export default function HomeIntro({ theme, onTheme, onEnter, syncError, categories }) {
-  return <section className="relative mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-5 py-12" dir="rtl">
+  return <section className="relative flex min-h-screen w-full flex-col items-center justify-center px-5 py-12" dir="rtl">
     <div className="fixed top-4 left-4 z-40"><ThemeControls theme={theme} onTheme={onTheme} /></div>
     <IntroAnimation categories={categories} />
     <div className="relative z-10 flex flex-col items-center gap-8 text-center">

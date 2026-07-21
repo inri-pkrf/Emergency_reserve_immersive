@@ -4,10 +4,11 @@ import { parseCsv, rowsToMedia } from "@/lib/mediaParser";
 import { loadMedia, mergeMedia, updateMedia } from "@/lib/mediaDb";
 import AppHeader from "@/components/media/AppHeader";
 import HomeIntro from "@/components/media/HomeIntro";
-import FilterBar from "@/components/media/FilterBar";
 import Gallery from "@/components/media/Gallery";
 import MediaDetail from "@/components/media/MediaDetail";
-import DetailBar from "@/components/media/DetailBar";
+import RightScreen from "@/components/media/RightScreen";
+import FilterPanel from "@/components/media/FilterPanel";
+import SimilarPanel from "@/components/media/SimilarPanel";
 import { useAuth } from "@/lib/AuthContext";
 import { base44 } from "@/api/base44Client";
 
@@ -33,5 +34,36 @@ export default function Home() {
   const enter = (category) => { setFilters({ category, type: "", tag: "", date: "", search: "" }); setView("gallery"); };
   const openItem = (item) => { setSelected(item); setView("detail"); window.scrollTo(0, 0); };
   const save = (id, changes) => { const next = updateMedia(id, changes); setMedia(next); setSelected(next.find((item) => item.id === id)); base44.entities.MediaOverride.filter({ media_id: id }).then((existing) => { if (existing.length > 0) { base44.entities.MediaOverride.update(existing[0].id, { display_name: changes.displayName, description: changes.description }); } else { base44.entities.MediaOverride.create({ media_id: id, display_name: changes.displayName, description: changes.description }); } }).catch((e) => console.error("Override save failed:", e)); };
-  return <div className="min-h-screen overflow-x-clip bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">{view !== "home" && <AppHeader theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />}{view === "home" && <HomeIntro theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} onEnter={enter} syncError={syncError} categories={options.categories} />}{view === "gallery" && <><FilterBar options={options} filters={filters} setFilters={setFilters} /><Gallery items={filtered} onOpen={openItem} syncError={syncError} /></>}{view === "detail" && selected && <><DetailBar item={selected} /><MediaDetail item={selected} onBack={() => setView("gallery")} onSave={save} isAdmin={isAdmin} similarItems={similarItems} onOpen={openItem} /></>}</div>;
+  return (
+    <div className="min-h-screen overflow-x-clip bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+      {view !== "home" && <AppHeader theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />}
+      {view === "home" && <HomeIntro theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} onEnter={enter} syncError={syncError} categories={options.categories} />}
+      {view === "gallery" && (
+        <div className="flex w-full pt-[80px]" dir="rtl">
+          <section className="flex h-[calc(100vh-80px)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
+            <RightScreen theme={theme} />
+          </section>
+          <section className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
+            <FilterPanel options={options} filters={filters} setFilters={setFilters} />
+          </section>
+          <section className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto">
+            <Gallery items={filtered} onOpen={openItem} syncError={syncError} />
+          </section>
+        </div>
+      )}
+      {view === "detail" && selected && (
+        <div className="flex w-full pt-[80px]" dir="rtl">
+          <section className="flex h-[calc(100vh-80px)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
+            <RightScreen theme={theme} />
+          </section>
+          <section key={`mid-${selected.id}`} className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
+            <MediaDetail item={selected} onBack={() => setView("gallery")} onSave={save} isAdmin={isAdmin} />
+          </section>
+          <section key={`left-${selected.id}`} className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto">
+            <SimilarPanel items={similarItems} onOpen={openItem} />
+          </section>
+        </div>
+      )}
+    </div>
+  );
 }
