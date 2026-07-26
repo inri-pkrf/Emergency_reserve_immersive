@@ -39,27 +39,27 @@ export default function Home() {
       {view !== "home" && <AppHeader theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />}
       {view === "home" && <HomeIntro theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} onEnter={enter} syncError={syncError} categories={options.categories} />}
       {view === "gallery" && (
-        <div className="flex w-full pt-[80px]" dir="rtl">
-          <section className="flex h-[calc(100vh-80px)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
+        <div className="flex w-full pt-20" dir="rtl">
+          <section className="flex h-[calc(100vh-5rem)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
             <RightScreen theme={theme} />
           </section>
-          <section className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
+          <section className="h-[calc(100vh-5rem)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
             <FilterPanel options={options} filters={filters} setFilters={setFilters} />
           </section>
-          <section className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto">
+          <section className="h-[calc(100vh-5rem)] w-1/3 overflow-y-auto">
             <Gallery items={filtered} onOpen={openItem} syncError={syncError} />
           </section>
         </div>
       )}
       {view === "detail" && selected && (
-        <div className="flex w-full pt-[80px]" dir="rtl">
-          <section className="flex h-[calc(100vh-80px)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
+        <div className="flex w-full pt-20" dir="rtl">
+          <section className="flex h-[calc(100vh-5rem)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
             <RightScreen theme={theme} />
           </section>
-          <section key={`mid-${selected.id}`} className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
+          <section key={`mid-${selected.id}`} className="h-[calc(100vh-5rem)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
             <MediaDetail item={selected} onBack={() => setView("gallery")} onSave={save} isAdmin={isAdmin} />
           </section>
-          <section key={`left-${selected.id}`} className="h-[calc(100vh-80px)] w-1/3 overflow-y-auto">
+          <section key={`left-${selected.id}`} className="h-[calc(100vh-5rem)] w-1/3 overflow-y-auto">
             <SimilarPanel items={similarItems} onOpen={openItem} />
           </section>
         </div>
