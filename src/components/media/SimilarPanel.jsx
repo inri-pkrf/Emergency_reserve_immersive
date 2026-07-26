@@ -3,9 +3,9 @@ import MediaCard from "@/components/media/MediaCard";
 export default function SimilarPanel({ items, onOpen }) {
   return (
     <div className="h-full overflow-y-auto px-4 py-4" dir="rtl">
-      <h2 className="mb-4 text-xl font-black text-slate-950 dark:text-white">קבצים דומים</h2>
+      <h2 className="mb-4 text-3xl font-black text-slate-950 dark:text-white">קבצים דומים</h2>
       {items.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-3 gap-4">
           {items.slice(0, 12).map((sim) => (
             <MediaCard key={sim.id} item={sim} onOpen={onOpen} />
           ))}
