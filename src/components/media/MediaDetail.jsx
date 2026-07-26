@@ -10,7 +10,7 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
 
   return (
     <div className="h-full overflow-y-auto p-6" dir="rtl">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto w-[90%]">
         <div className="mb-5 flex items-center justify-between gap-4">
           <button onClick={onBack} className="flex shrink-0 items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-base font-bold transition hover:bg-slate-100 dark:border-white/10 dark:hover:bg-white/10">
             <ArrowRight className="h-5 w-5" /> חזור לעמוד מיון
