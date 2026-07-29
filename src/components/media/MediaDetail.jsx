@@ -6,9 +6,8 @@ import { tagColor } from "@/lib/tagColors";
 export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(item.displayName);
-  const [description, setDescription] = useState(item.description || "");
   const [zoomed, setZoomed] = useState(false);
-  const save = () => {onSave(item.id, { displayName: name.trim() || item.originalName, description });setEditing(false);};
+  const save = () => {onSave(item.id, { displayName: name.trim() || item.originalName });setEditing(false);};
 
   return (
     <div className="relative h-full overflow-hidden p-6" dir="rtl">
@@ -46,11 +45,6 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
           <iframe src={`${mediaUrl(item)}?rm=minimal&autoplay=1`} title={item.displayName} allow="autoplay; encrypted-media" className="h-full w-full" />
           }
         </div>
-        
-
-
-
-
 
 
         
