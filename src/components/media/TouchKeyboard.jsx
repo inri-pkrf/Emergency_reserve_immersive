@@ -32,7 +32,6 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
   const cycleMode = () => setMode(MODES[(MODES.indexOf(mode) + 1) % MODES.length]);
 
   const letterKeys = mode === "he" ? KEYS_HE : mode === "en" ? KEYS_EN : KEYS_SYMBOLS;
-  const dir = mode === "en" ? "ltr" : "rtl";
   const modeLabel = mode === "he" ? "עברית" : mode === "en" ? "EN" : "סמלים";
   const keyClass = "flex items-center justify-center rounded-xl bg-white text-2xl font-bold text-slate-900 shadow-sm transition hover:bg-amber-50 active:scale-95 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600";
 
@@ -55,7 +54,7 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2.5" dir={dir}>
+      <div className="flex flex-col gap-2.5">
         <div className="flex justify-center gap-2">
           {KEYS_NUMBERS.map((k) => (
             <button key={k} onClick={() => handleKey(k)} className={`h-14 min-w-[3rem] flex-1 ${keyClass}`}>
@@ -64,7 +63,7 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
           ))}
         </div>
         {letterKeys.map((row, i) => (
-          <div key={i} className="flex justify-center gap-2">
+          <div key={i} className={`flex justify-center gap-2 ${mode === "he" ? "flex-row-reverse" : ""}`}>
             {row.map((k) => (
               <button key={k} onClick={() => handleKey(k)} className={`h-14 min-w-[3rem] flex-1 ${keyClass}`}>
                 {k}
@@ -72,7 +71,7 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
             ))}
           </div>
         ))}
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-row-reverse justify-center gap-2">
           <button onClick={handleBackspace} className={`flex items-center gap-2 ${keyClass} h-14 px-5`}>
             <Delete className="h-5 w-5" />
           </button>

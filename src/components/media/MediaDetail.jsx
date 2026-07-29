@@ -12,8 +12,8 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
 
   return (
     <div className="relative h-full overflow-hidden p-6" dir="rtl">
-      <div className="mx-auto flex h-full w-[90%] flex-col">
-        <div className="mb-5 flex items-center justify-between gap-4">
+      <div className="mx-auto flex h-[88%] w-[90%] flex-col">
+        <div className="mb-5 flex flex-shrink-0 items-center justify-between gap-4">
           <button onClick={onBack} className="flex shrink-0 items-center gap-3 rounded-full border border-slate-200 bg-white px-8 py-4 font-bold transition hover:bg-slate-100 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 text-xl">
             <ArrowRight className="h-7 w-7" /> חזור לעמוד מיון
           </button>
@@ -24,7 +24,7 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
           </button>
           }
         </div>
-        <div className="mb-3 flex items-center justify-between gap-4 flex-wrap">
+        <div className="mb-3 flex flex-shrink-0 items-center justify-between gap-4 flex-wrap">
           {editing ?
           <input value={name} onChange={(e) => setName(e.target.value)} className="min-w-[40%] flex-1 rounded-2xl border border-amber-400 bg-white p-4 text-3xl font-black outline-none dark:bg-slate-900" /> :
           <h1 className="text-4xl font-black text-slate-950 dark:text-white sm:text-5xl">{item.displayName}</h1>
@@ -36,17 +36,17 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
             {item.manualDate && <span className="rounded-full bg-amber-500 px-4 py-2 text-sm font-bold text-white">{item.manualDate}</span>}
           </div>
         </div>
-        <div className="relative overflow-hidden rounded-3xl bg-black shadow-2xl flex-shrink-0">
+        <div className="relative flex-1 min-h-0 overflow-hidden rounded-3xl bg-black shadow-2xl">
           <button onClick={() => setZoomed(true)} className="absolute top-3 right-3 z-10 rounded-full bg-white/10 p-2.5 text-white transition hover:bg-white/20">
             <Maximize2 className="h-6 w-6" />
           </button>
           {item.type === "תמונה" ?
-          <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="mx-auto max-h-[30vh] w-full object-contain" /> :
+          <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="mx-auto h-full w-full object-contain" /> :
 
-          <iframe src={mediaUrl(item)} title={item.displayName} allow="autoplay; encrypted-media" allowFullScreen className="aspect-video w-full" />
+          <iframe src={mediaUrl(item)} title={item.displayName} allow="autoplay; encrypted-media" allowFullScreen className="h-full w-full" />
           }
         </div>
-        <div className="mt-3 flex-1 overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900 sm:p-7">
+        <div className="mt-3 max-h-[20%] flex-shrink-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900 sm:p-7">
           <p className="mb-3 text-sm font-bold text-slate-400">תיאור המקרה</p>
           {editing ?
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={5} placeholder="כתבו כאן את סיפור המקרה..." className="w-full rounded-xl border border-amber-400 bg-transparent p-4 text-lg leading-8 outline-none" /> :
