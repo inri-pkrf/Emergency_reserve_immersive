@@ -62,7 +62,7 @@ const RINGS = [
 ];
 
 const BASE_CYCLE = 8500;
-const FLOATER_COUNT = 8;
+const FLOATER_COUNT = 16;
 
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const randomInZone = (zone) => ({
@@ -142,17 +142,19 @@ function Floater({ pool, index }) {
     const scale = 0.5 + Math.random() * 0.6;
     const color = pick(TEXT_COLORS);
     const fontSize = 16 + Math.random() * 12;
-    return { item, pos, scale, color, fontSize };
+    const peak = 0.3 + Math.random() * 0.6;
+    const opacities = [0, peak, peak * 0.85, peak * 0.9, peak * 0.75, 0];
+    return { item, pos, scale, color, fontSize, opacities };
   }, [tick, pool, zone]);
 
-  const { item, pos, scale, color, fontSize } = data;
+  const { item, pos, scale, color, fontSize, opacities } = data;
 
   return (
     <motion.div
       key={tick}
       initial={{ opacity: 0, scale: 0.3, x: "-50%", y: "-50%" }}
       animate={{
-        opacity: [0, 0.8, 0.75, 0.8, 0.7, 0],
+        opacity: opacities,
         scale: [0.3, scale, scale * 1.15, scale * 0.95, scale * 1.1, 0.3],
       }}
       transition={{
@@ -170,7 +172,7 @@ function Floater({ pool, index }) {
         />
       ) : (
         <span
-          className={`whitespace-nowrap font-bold ${color}`}
+          className={`whitespace-nowrap font-heading ${color}`}
           style={{ fontSize: `${fontSize}px` }}
         >
           {item.text}
@@ -180,10 +182,10 @@ function Floater({ pool, index }) {
   );
 }
 
-export default function IntroAnimation({ categories = [] }) {
+export default function IntroAnimation({ categories = [], tags = [] }) {
   const pool = useMemo(
-    () => [...WAR_LOGOS.map((src) => ({ src })), ...categories.map((text) => ({ text }))],
-    [categories]
+    () => [...WAR_LOGOS.map((src) => ({ src })), ...categories.map((text) => ({ text })), ...tags.map((text) => ({ text }))],
+    [categories, tags]
   );
 
   if (!pool.length) return null;

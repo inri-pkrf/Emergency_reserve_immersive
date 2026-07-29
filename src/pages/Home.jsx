@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-x-clip bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
       {view !== "home" && <AppHeader theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} />}
-      {view === "home" && <HomeIntro theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} onEnter={enter} syncError={syncError} categories={options.categories} />}
+      {view === "home" && <HomeIntro theme={theme} onTheme={() => setTheme(theme === "dark" ? "light" : "dark")} onEnter={enter} syncError={syncError} categories={options.categories} tags={options.tags} />}
       {view === "gallery" && (
         <div className="flex w-full pt-[6.5rem]" dir="rtl">
           <section className="flex h-[calc(100vh-6.5rem)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
