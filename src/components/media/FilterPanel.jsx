@@ -46,7 +46,7 @@ export default function FilterPanel({ options, filters, setFilters }) {
             <h3 className="mb-4 text-3xl font-bold text-slate-500 dark:text-slate-400">סוג קובץ</h3>
             <div className="flex flex-wrap gap-2">
               {options.types.map((type) =>
-            <button key={type} onClick={() => toggle("type", type)} className={`rounded-xl px-5 py-3 text-lg font-bold transition ${btnClass(filters.type === type)}`}>{type}</button>
+            <button key={type} onClick={() => toggle("type", type)} className={`rounded-xl px-5 py-3 font-bold transition text-xl ${btnClass(filters.type === type)}`}>{type}</button>
             )}
             </div>
           </section>
@@ -57,7 +57,7 @@ export default function FilterPanel({ options, filters, setFilters }) {
             <h3 className="mb-4 text-3xl font-bold text-slate-500 dark:text-slate-400">תגיות</h3>
             <div className="flex flex-wrap gap-2">
               {options.tags.map((tag) =>
-            <button key={tag} onClick={() => toggle("tag", tag)} className={`rounded-full px-4 py-2 font-bold transition text-xl ${tagColor(tag)} ${filters.tag === tag ? "ring-2 ring-amber-400 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-950" : "opacity-60 hover:opacity-100"}`}>{tag}</button>
+            <button key={tag} onClick={() => toggle("tag", tag)} className={`rounded-full px-4 py-2 font-bold transition text-2xl ${tagColor(tag)} ${filters.tag === tag ? "ring-2 ring-amber-400 ring-offset-2 ring-offset-slate-50 dark:ring-offset-slate-950" : "opacity-60 hover:opacity-100"}`}>{tag}</button>
             )}
             </div>
           </section>
