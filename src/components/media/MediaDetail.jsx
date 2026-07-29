@@ -12,7 +12,7 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
 
   return (
     <div className="relative h-full overflow-hidden p-6" dir="rtl">
-      <div className="mx-auto flex h-[88%] w-[90%] flex-col">
+      <div className="mx-auto flex h-[94%] w-[90%] flex-col">
         <div className="mb-5 flex flex-shrink-0 items-center justify-between gap-4">
           <button onClick={onBack} className="flex shrink-0 items-center gap-3 rounded-full border border-slate-200 bg-white px-8 py-4 font-bold transition hover:bg-slate-100 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 text-xl">
             <ArrowRight className="h-7 w-7" /> חזור לעמוד מיון
@@ -43,10 +43,10 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
           {item.type === "תמונה" ?
           <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="mx-auto h-full w-full object-contain" /> :
 
-          <iframe src={mediaUrl(item)} title={item.displayName} allow="autoplay; encrypted-media" allowFullScreen className="h-full w-full" />
+          <iframe src={`${mediaUrl(item)}?rm=minimal&autoplay=1`} title={item.displayName} allow="autoplay; encrypted-media" className="h-full w-full" />
           }
         </div>
-        <div className="mt-3 max-h-[20%] flex-shrink-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900 sm:p-7">
+        <div className="mt-3 max-h-[15%] flex-shrink-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900 sm:p-7">
           <p className="mb-3 text-sm font-bold text-slate-400">תיאור המקרה</p>
           {editing ?
           <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={5} placeholder="כתבו כאן את סיפור המקרה..." className="w-full rounded-xl border border-amber-400 bg-transparent p-4 text-lg leading-8 outline-none" /> :
@@ -63,7 +63,7 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
         {item.type === "תמונה" ?
         <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="max-h-full max-w-full object-contain" /> :
 
-        <iframe src={mediaUrl(item)} title={item.displayName} allow="autoplay; encrypted-media" allowFullScreen className="h-full w-full" />
+        <iframe src={`${mediaUrl(item)}?rm=minimal&autoplay=1`} title={item.displayName} allow="autoplay; encrypted-media" className="h-full w-full" />
         }
       </div>
       }
