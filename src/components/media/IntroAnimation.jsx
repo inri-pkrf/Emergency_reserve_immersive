@@ -17,16 +17,20 @@ const TEXT_COLORS = [
 ];
 
 const ZONES = [
-  { xMin: 8, xMax: 22, yMin: 8, yMax: 20 },
-  { xMin: 78, xMax: 92, yMin: 8, yMax: 20 },
-  { xMin: 8, xMax: 22, yMin: 78, yMax: 92 },
-  { xMin: 78, xMax: 92, yMin: 78, yMax: 92 },
-  { xMin: 6, xMax: 18, yMin: 38, yMax: 58 },
-  { xMin: 82, xMax: 94, yMin: 38, yMax: 58 },
-  { xMin: 35, xMax: 48, yMin: 84, yMax: 94 },
-  { xMin: 52, xMax: 65, yMin: 84, yMax: 94 },
-  { xMin: 35, xMax: 48, yMin: 6, yMax: 16 },
-  { xMin: 52, xMax: 65, yMin: 6, yMax: 16 },
+  { xMin: 3, xMax: 10, yMin: 8, yMax: 20 },
+  { xMin: 3, xMax: 10, yMin: 40, yMax: 55 },
+  { xMin: 3, xMax: 10, yMin: 75, yMax: 90 },
+  { xMin: 13, xMax: 25, yMin: 10, yMax: 22 },
+  { xMin: 13, xMax: 25, yMin: 45, yMax: 60 },
+  { xMin: 13, xMax: 25, yMin: 78, yMax: 92 },
+  { xMin: 75, xMax: 87, yMin: 10, yMax: 22 },
+  { xMin: 75, xMax: 87, yMin: 45, yMax: 60 },
+  { xMin: 75, xMax: 87, yMin: 78, yMax: 92 },
+  { xMin: 90, xMax: 97, yMin: 8, yMax: 20 },
+  { xMin: 90, xMax: 97, yMin: 40, yMax: 55 },
+  { xMin: 90, xMax: 97, yMin: 75, yMax: 90 },
+  { xMin: 38, xMax: 48, yMin: 6, yMax: 14 },
+  { xMin: 52, xMax: 62, yMin: 86, yMax: 94 },
 ];
 
 const BLOBS = [
@@ -182,7 +186,7 @@ function Floater({ pool, index }) {
   );
 }
 
-export default function IntroAnimation({ categories = [], tags = [] }) {
+export default function IntroAnimation({ categories = [], tags = [], floaterCount = FLOATER_COUNT }) {
   const pool = useMemo(
     () => [...WAR_LOGOS.map((src) => ({ src })), ...categories.map((text) => ({ text })), ...tags.map((text) => ({ text }))],
     [categories, tags]
@@ -196,7 +200,7 @@ export default function IntroAnimation({ categories = [], tags = [] }) {
       {RINGS.map((r, i) => <AmbientRing key={`ring-${i}`} {...r} />)}
       {STREAKS.map((s, i) => <GradientStreak key={`streak-${i}`} {...s} />)}
       {PARTICLES.map((p, i) => <Particle key={`particle-${i}`} {...p} />)}
-      {Array.from({ length: FLOATER_COUNT }, (_, i) => (
+      {Array.from({ length: floaterCount }, (_, i) => (
         <Floater key={i} pool={pool} index={i} />
       ))}
     </div>

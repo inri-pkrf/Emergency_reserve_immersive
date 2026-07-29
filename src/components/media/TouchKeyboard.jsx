@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { X, Delete, Globe } from "lucide-react";
+import { X, Delete, Globe, Hash } from "lucide-react";
 
 const KEYS_HE = [
   ["ק", "ר", "א", "ט", "ו", "ן", "ם", "פ"],
-  ["ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך"],
+  ["ש", "ד", "ג", "כ", "ע", "י", "ח", "ל", "ך", "ף"],
   ["ז", "ס", "ב", "ה", "נ", "מ", "צ", "ת", "ץ"],
 ];
 
@@ -13,26 +13,38 @@ const KEYS_EN = [
   ["z", "x", "c", "v", "b", "n", "m"],
 ];
 
+const KEYS_NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+
+const KEYS_SYMBOLS = [
+  ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"],
+  ["-", "_", "=", "+", "[", "]", "{", "}", "|", "\\"],
+  [";", ":", "'", "\"", "<", ">", ",", ".", "?", "/"],
+];
+
+const MODES = ["he", "en", "sym"];
+
 export default function TouchKeyboard({ value, onChange, onClose }) {
-  const [lang, setLang] = useState("he");
+  const [mode, setMode] = useState("he");
 
   const handleKey = (key) => onChange(value + key);
   const handleBackspace = () => onChange(value.slice(0, -1));
   const handleSpace = () => onChange(value + " ");
+  const cycleMode = () => setMode(MODES[(MODES.indexOf(mode) + 1) % MODES.length]);
 
-  const keys = lang === "he" ? KEYS_HE : KEYS_EN;
-  const keyClass =
-    "flex items-center justify-center rounded-xl bg-white text-xl font-bold text-slate-900 shadow-sm transition hover:bg-amber-50 active:scale-95 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600";
+  const letterKeys = mode === "he" ? KEYS_HE : mode === "en" ? KEYS_EN : KEYS_SYMBOLS;
+  const dir = mode === "en" ? "ltr" : "rtl";
+  const modeLabel = mode === "he" ? "עברית" : mode === "en" ? "EN" : "סמלים";
+  const keyClass = "flex items-center justify-center rounded-xl bg-white text-xl font-bold text-slate-900 shadow-sm transition hover:bg-amber-50 active:scale-95 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600";
 
   return (
     <div className="mx-auto mt-4 w-[75%] rounded-2xl border border-slate-200 bg-slate-100 p-4 shadow-xl dark:border-white/10 dark:bg-slate-900">
       <div className="mb-3 flex items-center justify-between">
         <button
-          onClick={() => setLang(lang === "he" ? "en" : "he")}
+          onClick={cycleMode}
           className="flex items-center gap-2 rounded-full bg-slate-200 px-5 py-2.5 text-lg font-bold text-slate-700 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
         >
-          <Globe className="h-5 w-5" />
-          {lang === "he" ? "עברית" : "EN"}
+          {mode === "sym" ? <Hash className="h-5 w-5" /> : <Globe className="h-5 w-5" />}
+          {modeLabel}
         </button>
         <button
           onClick={onClose}
@@ -43,8 +55,15 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2.5" dir={lang === "he" ? "rtl" : "ltr"}>
-        {keys.map((row, i) => (
+      <div className="flex flex-col gap-2.5" dir={dir}>
+        <div className="flex justify-center gap-2">
+          {KEYS_NUMBERS.map((k) => (
+            <button key={k} onClick={() => handleKey(k)} className={`h-12 min-w-[2.5rem] flex-1 ${keyClass}`}>
+              {k}
+            </button>
+          ))}
+        </div>
+        {letterKeys.map((row, i) => (
           <div key={i} className="flex justify-center gap-2">
             {row.map((k) => (
               <button key={k} onClick={() => handleKey(k)} className={`h-12 min-w-[2.5rem] flex-1 ${keyClass}`}>

@@ -23,20 +23,21 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
             </button>
           }
         </div>
-        {editing ?
-        <input value={name} onChange={(e) => setName(e.target.value)} className="mb-3 w-full rounded-2xl border border-amber-400 bg-white p-4 text-3xl font-black outline-none dark:bg-slate-900" /> :
-
-        <h1 className="mb-3 text-4xl font-black text-slate-950 dark:text-white sm:text-5xl">{item.displayName}</h1>
-        }
-        <div className="mb-4 flex flex-wrap gap-2.5">
-          {item.category && <span className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(item.category)}`}>{item.category}</span>}
-          {item.type && <span className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(item.type)}`}>{item.type}</span>}
-          {item.tags.map((tag) => <span key={tag} className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(tag)}`}>{tag}</span>)}
-          {item.manualDate && <span className="rounded-full bg-amber-500 px-4 py-2 text-sm font-bold text-white">{item.manualDate}</span>}
+        <div className="mb-3 flex items-center justify-between gap-4 flex-wrap">
+          {editing ?
+          <input value={name} onChange={(e) => setName(e.target.value)} className="min-w-[40%] flex-1 rounded-2xl border border-amber-400 bg-white p-4 text-3xl font-black outline-none dark:bg-slate-900" /> :
+          <h1 className="text-4xl font-black text-slate-950 dark:text-white sm:text-5xl">{item.displayName}</h1>
+          }
+          <div className="flex flex-wrap gap-2.5 justify-end">
+            {item.category && <span className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(item.category)}`}>{item.category}</span>}
+            {item.type && <span className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(item.type)}`}>{item.type}</span>}
+            {item.tags.map((tag) => <span key={tag} className={`rounded-full px-4 py-2 text-sm font-bold ${tagColor(tag)}`}>{tag}</span>)}
+            {item.manualDate && <span className="rounded-full bg-amber-500 px-4 py-2 text-sm font-bold text-white">{item.manualDate}</span>}
+          </div>
         </div>
         <div className="overflow-hidden rounded-3xl bg-black shadow-2xl flex-shrink-0">
           {item.type === "תמונה" ?
-          <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="mx-auto max-h-[35vh] w-full object-contain" /> :
+          <img src={thumbnailUrl(item, "w2000")} alt={item.displayName} className="mx-auto max-h-[45vh] w-full object-contain" /> :
 
           <iframe src={mediaUrl(item)} title={item.displayName} allow="autoplay; encrypted-media" allowFullScreen className="aspect-video w-full" />
           }
