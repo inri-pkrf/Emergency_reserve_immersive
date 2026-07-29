@@ -41,7 +41,7 @@ export default function Home() {
       {view === "gallery" && (
         <div className="flex w-full pt-[6.5rem]" dir="rtl">
           <section className="flex h-[calc(100vh-6.5rem)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
-            <RightScreen theme={theme} />
+            <RightScreen theme={theme} categories={options.categories} />
           </section>
           <section className="h-[calc(100vh-6.5rem)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
             <FilterPanel options={options} filters={filters} setFilters={setFilters} />
@@ -54,7 +54,7 @@ export default function Home() {
       {view === "detail" && selected && (
         <div className="flex w-full pt-[6.5rem]" dir="rtl">
           <section className="flex h-[calc(100vh-6.5rem)] w-1/3 flex-col items-center justify-center border-l border-slate-200 dark:border-white/10">
-            <RightScreen theme={theme} />
+            <RightScreen theme={theme} categories={options.categories} />
           </section>
           <section key={`mid-${selected.id}`} className="h-[calc(100vh-6.5rem)] w-1/3 overflow-y-auto border-l border-slate-200 dark:border-white/10">
             <MediaDetail item={selected} onBack={() => setView("gallery")} onSave={save} isAdmin={isAdmin} />
