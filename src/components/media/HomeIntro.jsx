@@ -15,6 +15,6 @@ export default function HomeIntro({ theme, onTheme, onEnter, syncError, categori
       <p className="max-w-2xl leading-relaxed text-slate-600 dark:text-slate-300 text-3xl sm:text-3xl">ארכיון דיגיטלי דינמי המרכז תיעוד מלחמות, מבצעים ופעילויות פיקוד העורף.
 מנוע סינון חכם מבוסס תגיות המאפשר ניווט מהיר ואיתור תכנים דומים ומשלימים.</p>
       {syncError && <p className="max-w-md rounded-2xl border border-amber-300/50 bg-amber-50 p-4 text-sm text-amber-900 dark:bg-amber-400/10 dark:text-amber-200">הגיליון אינו זמין כרגע לצפייה ציבורית. ודאו שהגיליון משותף לציבור.</p>}
-      <button onClick={() => onEnter("")} className="inline-flex items-center gap-3 rounded-full bg-amber-400 px-8 py-4 text-lg font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-300">התחלה <ArrowLeft className="h-5 w-5" /></button>
+      <button onClick={() => onEnter("")} className="inline-flex items-center gap-3 rounded-full bg-amber-400 px-8 py-4 font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-amber-300 text-2xl">התחלה <ArrowLeft className="h-5 w-5" /></button>
     </div>
   </section>;}
