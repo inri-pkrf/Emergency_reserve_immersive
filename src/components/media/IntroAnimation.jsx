@@ -21,7 +21,7 @@ const TEXT_COLORS = [
   "text-sky-600/50 dark:text-sky-300/60",
 ];
 
-const ZONES = [
+const ZONES_FULL = [
   { xMin: 3, xMax: 10, yMin: 8, yMax: 20 },
   { xMin: 3, xMax: 10, yMin: 40, yMax: 55 },
   { xMin: 3, xMax: 10, yMin: 75, yMax: 90 },
@@ -36,6 +36,21 @@ const ZONES = [
   { xMin: 90, xMax: 97, yMin: 75, yMax: 90 },
   { xMin: 38, xMax: 48, yMin: 6, yMax: 14 },
   { xMin: 52, xMax: 62, yMin: 86, yMax: 94 },
+];
+
+const ZONES_PANEL = [
+  { xMin: 2, xMax: 12, yMin: 4, yMax: 16 },
+  { xMin: 2, xMax: 12, yMin: 38, yMax: 52 },
+  { xMin: 2, xMax: 12, yMin: 72, yMax: 88 },
+  { xMin: 86, xMax: 96, yMin: 4, yMax: 16 },
+  { xMin: 86, xMax: 96, yMin: 38, yMax: 52 },
+  { xMin: 86, xMax: 96, yMin: 72, yMax: 88 },
+  { xMin: 15, xMax: 30, yMin: 6, yMax: 18 },
+  { xMin: 70, xMax: 84, yMin: 6, yMax: 18 },
+  { xMin: 15, xMax: 30, yMin: 82, yMax: 94 },
+  { xMin: 70, xMax: 84, yMin: 82, yMax: 94 },
+  { xMin: 35, xMax: 48, yMin: 2, yMax: 10 },
+  { xMin: 52, xMax: 65, yMin: 90, yMax: 98 },
 ];
 
 const BLOBS = [
@@ -135,10 +150,11 @@ function AmbientRing({ size, x, y, duration, delay }) {
   );
 }
 
-function Floater({ pool, index }) {
+function Floater({ logos, texts, index, zones }) {
   const [tick, setTick] = useState(0);
   const cycle = BASE_CYCLE + index * 1200;
-  const zone = ZONES[index % ZONES.length];
+  const zone = zones[index % zones.length];
+  const isLogoSlot = index % 2 === 0;
 
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), cycle);
@@ -146,6 +162,7 @@ function Floater({ pool, index }) {
   }, [cycle]);
 
   const data = useMemo(() => {
+    const pool = isLogoSlot && logos.length > 0 ? logos : texts.length > 0 ? texts : logos;
     const item = pick(pool);
     const pos = randomInZone(zone);
     const scale = 0.5 + Math.random() * 0.6;
@@ -154,7 +171,7 @@ function Floater({ pool, index }) {
     const peak = 0.3 + Math.random() * 0.6;
     const opacities = [0, peak, peak * 0.85, peak * 0.9, peak * 0.75, 0];
     return { item, pos, scale, color, fontSize, opacities };
-  }, [tick, pool, zone]);
+  }, [tick, logos, texts, zone, isLogoSlot]);
 
   const { item, pos, scale, color, fontSize, opacities } = data;
 
@@ -191,13 +208,12 @@ function Floater({ pool, index }) {
   );
 }
 
-export default function IntroAnimation({ categories = [], tags = [], floaterCount = FLOATER_COUNT }) {
-  const pool = useMemo(
-    () => [...WAR_LOGOS.map((src) => ({ src })), ...categories.map((text) => ({ text })), ...tags.map((text) => ({ text }))],
-    [categories, tags]
-  );
+export default function IntroAnimation({ categories = [], tags = [], floaterCount = FLOATER_COUNT, variant = "full" }) {
+  const logos = useMemo(() => WAR_LOGOS.map((src) => ({ src })), []);
+  const texts = useMemo(() => [...categories.map((text) => ({ text })), ...tags.map((text) => ({ text }))], [categories, tags]);
+  const zones = variant === "panel" ? ZONES_PANEL : ZONES_FULL;
 
-  if (!pool.length) return null;
+  if (!logos.length && !texts.length) return null;
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
@@ -206,7 +222,7 @@ export default function IntroAnimation({ categories = [], tags = [], floaterCoun
       {STREAKS.map((s, i) => <GradientStreak key={`streak-${i}`} {...s} />)}
       {PARTICLES.map((p, i) => <Particle key={`particle-${i}`} {...p} />)}
       {Array.from({ length: floaterCount }, (_, i) => (
-        <Floater key={i} pool={pool} index={i} />
+        <Floater key={i} logos={logos} texts={texts} index={i} zones={zones} />
       ))}
     </div>
   );

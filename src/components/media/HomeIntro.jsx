@@ -8,7 +8,7 @@ const LOGO_DARK = "https://media.base44.com/images/public/6a5cb44eb599d294f260c3
 export default function HomeIntro({ theme, onTheme, onEnter, syncError, categories, tags }) {
   return <section className="relative flex min-h-screen w-full flex-col items-center justify-center px-5 py-12" dir="rtl">
     <div className="fixed top-4 left-4 z-40"><ThemeControls theme={theme} onTheme={onTheme} /></div>
-    <IntroAnimation categories={categories} tags={tags} />
+    <IntroAnimation categories={categories} tags={tags} floaterCount={16} variant="full" />
     <div className="relative z-10 flex flex-col items-center gap-8 text-center">
       <img src={theme === "dark" ? LOGO_DARK : LOGO_LIGHT} alt="המכללה הלאומית לאיתנות ישראלית" className="h-auto w-72 rounded-2xl sm:w-96" />
       <h1 className="font-black leading-tight text-slate-950 dark:text-white text-[100px] sm:text-[100px]">מאגרי חירום</h1>
