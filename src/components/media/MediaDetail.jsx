@@ -46,14 +46,14 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
           <iframe src={`${mediaUrl(item)}?rm=minimal&autoplay=1`} title={item.displayName} allow="autoplay; encrypted-media" className="h-full w-full" />
           }
         </div>
-        <div className="mt-3 max-h-[15%] flex-shrink-0 overflow-y-auto rounded-3xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-slate-900 sm:p-7 hidden">
-          <p className="mb-3 text-sm font-bold text-slate-400">תיאור המקרה</p>
-          {editing ?
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={5} placeholder="כתבו כאן את סיפור המקרה..." className="w-full rounded-xl border border-amber-400 bg-transparent p-4 text-lg leading-8 outline-none" /> :
+        
 
-          <p className="whitespace-pre-wrap text-lg leading-9 text-slate-600 dark:text-slate-300">{item.description || "טרם נוסף תיאור לפריט זה."}</p>
-          }
-        </div>
+
+
+
+
+
+        
       </div>
       {zoomed &&
       <div className="absolute inset-0 z-50 flex items-center justify-center bg-black p-4">
