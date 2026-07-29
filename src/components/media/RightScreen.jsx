@@ -2,7 +2,7 @@ import IntroAnimation from "@/components/media/IntroAnimation";
 
 export default function RightScreen({ categories = [] }) {
   return (
-    <div className="relative flex w-full flex-col items-center gap-6 overflow-hidden px-10" dir="rtl">
+    <div className="relative flex h-full w-full flex-col items-center justify-center gap-6 overflow-hidden px-10" dir="rtl">
       <IntroAnimation categories={categories} />
       <div className="relative z-10 flex flex-col items-center gap-6">
         <h1 className="text-center text-7xl font-black leading-tight text-slate-950 dark:text-white sm:text-8xl">מאגרי חירום</h1>

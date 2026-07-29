@@ -71,11 +71,13 @@ export default function FilterPanel({ options, filters, setFilters }) {
       </div>
 
       {showKeyboard && (
-        <TouchKeyboard
-          value={filters.search}
-          onChange={(val) => setFilters((c) => ({ ...c, search: val }))}
-          onClose={() => setShowKeyboard(false)}
-        />
+        <div className="mx-auto w-[60%]">
+          <TouchKeyboard
+            value={filters.search}
+            onChange={(val) => setFilters((c) => ({ ...c, search: val }))}
+            onClose={() => setShowKeyboard(false)}
+          />
+        </div>
       )}
     </div>
   );
