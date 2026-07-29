@@ -22,11 +22,11 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
 
   const keys = lang === "he" ? KEYS_HE : KEYS_EN;
   const keyClass =
-    "flex items-center justify-center rounded-2xl bg-white text-2xl font-bold text-slate-900 shadow-sm transition hover:bg-amber-50 active:scale-95 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600";
+    "flex items-center justify-center rounded-xl bg-white text-xl font-bold text-slate-900 shadow-sm transition hover:bg-amber-50 active:scale-95 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600";
 
   return (
-    <div className="mt-4 rounded-3xl border border-slate-200 bg-slate-100 p-5 shadow-xl dark:border-white/10 dark:bg-slate-900">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="mx-auto mt-4 w-[75%] rounded-2xl border border-slate-200 bg-slate-100 p-4 shadow-xl dark:border-white/10 dark:bg-slate-900">
+      <div className="mb-3 flex items-center justify-between">
         <button
           onClick={() => setLang(lang === "he" ? "en" : "he")}
           className="flex items-center gap-2 rounded-full bg-slate-200 px-5 py-2.5 text-lg font-bold text-slate-700 transition hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
@@ -43,25 +43,21 @@ export default function TouchKeyboard({ value, onChange, onClose }) {
         </button>
       </div>
 
-      <div className="mb-4 rounded-2xl bg-white px-5 py-4 text-2xl text-slate-900 dark:bg-slate-800 dark:text-white" dir="rtl">
-        {value || <span className="text-slate-400">...</span>}
-      </div>
-
-      <div className="flex flex-col gap-3" dir={lang === "he" ? "rtl" : "ltr"}>
+      <div className="flex flex-col gap-2.5" dir={lang === "he" ? "rtl" : "ltr"}>
         {keys.map((row, i) => (
           <div key={i} className="flex justify-center gap-2">
             {row.map((k) => (
-              <button key={k} onClick={() => handleKey(k)} className={`h-16 min-w-[3.5rem] flex-1 ${keyClass}`}>
+              <button key={k} onClick={() => handleKey(k)} className={`h-12 min-w-[2.5rem] flex-1 ${keyClass}`}>
                 {k}
               </button>
             ))}
           </div>
         ))}
         <div className="flex justify-center gap-2">
-          <button onClick={handleBackspace} className={`flex items-center gap-2 ${keyClass} h-16 px-6`}>
-            <Delete className="h-6 w-6" />
+          <button onClick={handleBackspace} className={`flex items-center gap-2 ${keyClass} h-12 px-5`}>
+            <Delete className="h-5 w-5" />
           </button>
-          <button onClick={handleSpace} className={`h-16 flex-1 ${keyClass}`}>
+          <button onClick={handleSpace} className={`h-12 flex-1 ${keyClass}`}>
             רווח
           </button>
         </div>
