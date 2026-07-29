@@ -13,7 +13,7 @@ export default function MediaDetail({ item, onBack, onSave, isAdmin }) {
     <div className="h-full overflow-hidden p-6" dir="rtl">
       <div className="mx-auto flex h-full w-[90%] flex-col">
         <div className="mb-5 flex items-center justify-between gap-4">
-          <button onClick={onBack} className="flex shrink-0 items-center gap-3 rounded-full border border-slate-200 bg-white px-8 py-4 font-bold transition hover:bg-slate-100 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 text-2xl">
+          <button onClick={onBack} className="flex shrink-0 items-center gap-3 rounded-full border border-slate-200 bg-white px-8 py-4 font-bold transition hover:bg-slate-100 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 text-xl">
             <ArrowRight className="h-7 w-7" /> חזור לעמוד מיון
           </button>
           {isAdmin &&
