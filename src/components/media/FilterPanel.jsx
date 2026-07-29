@@ -1,7 +1,10 @@
-import { X, Search } from "lucide-react";
+import { useState } from "react";
+import { X, Search, Keyboard } from "lucide-react";
 import { tagColor } from "@/lib/tagColors";
+import TouchKeyboard from "@/components/media/TouchKeyboard";
 
 export default function FilterPanel({ options, filters, setFilters }) {
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const toggle = (key, value) => setFilters((current) => ({ ...current, [key]: current[key] === value ? "" : value }));
   const hasFilters = filters.category || filters.type || filters.tag || filters.search;
   const btnClass = (active) => active
@@ -13,15 +16,15 @@ export default function FilterPanel({ options, filters, setFilters }) {
       <div className="mx-auto w-[90%]">
         <div className="relative mb-8">
           <Search className="pointer-events-none absolute right-4 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-400" />
-          <input
-            type="text"
-            value={filters.search}
-            onChange={(e) => setFilters((current) => ({ ...current, search: e.target.value }))}
-            placeholder="חיפוש חופשי..."
-            className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 pr-14 text-2xl outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/40 dark:border-white/10 dark:bg-slate-900"
-          />
+          <button
+            onClick={() => setShowKeyboard(true)}
+            className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 pr-14 text-right text-2xl outline-none transition hover:border-amber-400 dark:border-white/10 dark:bg-slate-900"
+          >
+            {filters.search || <span className="text-slate-400">חיפוש חופשי...</span>}
+          </button>
+          <Keyboard className="pointer-events-none absolute left-4 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-400" />
           {filters.search && (
-            <button onClick={() => setFilters((c) => ({ ...c, search: "" }))} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+            <button onClick={() => setFilters((c) => ({ ...c, search: "" }))} className="absolute left-14 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
               <X className="h-7 w-7" />
             </button>
           )}
@@ -66,6 +69,14 @@ export default function FilterPanel({ options, filters, setFilters }) {
           </button>
         )}
       </div>
+
+      {showKeyboard && (
+        <TouchKeyboard
+          value={filters.search}
+          onChange={(val) => setFilters((c) => ({ ...c, search: val }))}
+          onClose={() => setShowKeyboard(false)}
+        />
+      )}
     </div>
   );
 }
