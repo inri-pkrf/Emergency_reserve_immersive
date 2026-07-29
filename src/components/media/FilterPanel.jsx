@@ -35,7 +35,7 @@ export default function FilterPanel({ options, filters, setFilters }) {
             <h3 className="mb-4 text-3xl font-bold text-slate-500 dark:text-slate-400">מקור / קטגוריה</h3>
             <div className="flex flex-wrap gap-2">
               {options.categories.map((cat) =>
-            <button key={cat} onClick={() => toggle("category", cat)} className={`rounded-xl px-5 py-3 text-lg font-bold transition ${btnClass(filters.category === cat)}`}>{cat}</button>
+            <button key={cat} onClick={() => toggle("category", cat)} className={`rounded-xl px-5 py-3 font-bold transition text-xl ${btnClass(filters.category === cat)}`}>{cat}</button>
             )}
             </div>
           </section>
