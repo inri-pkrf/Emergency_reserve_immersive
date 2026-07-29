@@ -5,6 +5,11 @@ const WAR_LOGOS = [
   "https://media.base44.com/images/public/6a5cb44eb599d294f260c3f8/534ee255f_image.png",
   "https://media.base44.com/images/public/6a5cb44eb599d294f260c3f8/367d6554b_image.png",
   "https://media.base44.com/images/public/6a5cb44eb599d294f260c3f8/b14ce6c26_image.png",
+  "https://media.base44.com/images/public/6a5f4c0c5efc1b841d9ee4ff/c9c25c05e_haifa-logo.png",
+  "https://media.base44.com/images/public/6a5f4c0c5efc1b841d9ee4ff/e3f5470d4_darom-logo.png",
+  "https://media.base44.com/images/public/6a5f4c0c5efc1b841d9ee4ff/8b9ee90f0_dan-logo.png",
+  "https://media.base44.com/images/public/6a5f4c0c5efc1b841d9ee4ff/5e0d16c98_zafon-logo.png",
+  "https://media.base44.com/images/public/6a5f4c0c5efc1b841d9ee4ff/623115f45_image.png",
 ];
 
 const TEXT_COLORS = [
