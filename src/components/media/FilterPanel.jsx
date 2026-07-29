@@ -12,9 +12,9 @@ export default function FilterPanel({ options, filters, setFilters }) {
   "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700";
 
   return (
-    <div className="h-full overflow-y-auto p-8" dir="rtl">
-      <div className="mx-auto w-[90%]">
-        <div className="relative mb-8">
+    <div className="relative h-full overflow-y-auto p-8" dir="rtl">
+      <div className="relative z-30 mx-auto w-[90%]">
+        <div className="relative mb-4">
           <Search className="pointer-events-none absolute right-4 top-1/2 h-7 w-7 -translate-y-1/2 text-slate-400" />
           <button
             onClick={() => setShowKeyboard(true)}
@@ -30,6 +30,17 @@ export default function FilterPanel({ options, filters, setFilters }) {
           }
         </div>
 
+        {showKeyboard &&
+        <div className="mb-8">
+          <TouchKeyboard
+          value={filters.search}
+          onChange={(val) => setFilters((c) => ({ ...c, search: val }))}
+          onClose={() => setShowKeyboard(false)} />
+        </div>
+        }
+      </div>
+
+      <div className={`mx-auto w-[90%] ${showKeyboard ? "pointer-events-none" : ""}`}>
         {options.categories.length > 0 &&
         <section className="mb-8">
             <h3 className="mb-4 text-3xl font-bold text-slate-500 dark:text-slate-400">מקור / קטגוריה</h3>
@@ -71,13 +82,7 @@ export default function FilterPanel({ options, filters, setFilters }) {
       </div>
 
       {showKeyboard &&
-      <div className="mx-auto w-[60%]">
-          <TouchKeyboard
-          value={filters.search}
-          onChange={(val) => setFilters((c) => ({ ...c, search: val }))}
-          onClose={() => setShowKeyboard(false)} />
-        
-        </div>
+      <div className="absolute inset-0 z-20 bg-slate-950/60" />
       }
     </div>);
 
